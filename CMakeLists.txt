@@ -18,6 +18,12 @@ ENDIF()
 
 PROJECT(mariadb-connector-c C)
 
+# hack for some older CMake versions
+IF(TARGET crypto AND TARGET ssl AND TARGET libressl)
+  ADD_DEPENDENCIES(ssl libressl)
+  ADD_DEPENDENCIES(crypto libressl)
+ENDIF()
+
 # Is C/C built as subproject?
 get_directory_property(IS_SUBPROJECT PARENT_DIRECTORY)
 
